@@ -1,5 +1,5 @@
 module.exports = {
-  entry: `${__dirname}/src/redux.js`,
+  entry: `${__dirname}/src/ToDo.js`,
   output: {
     filename: 'bundle.js',
     path: `${__dirname}/dist`
