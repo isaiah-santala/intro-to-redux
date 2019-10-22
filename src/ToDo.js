@@ -21,7 +21,7 @@ const todo = (state, action) => {
 };
 
 const todos = (state = [], action) => {
-  console.log('todos', state, action)
+  console.log(state, action)
   switch (action.type) {
     case 'ADD_TODO':
       return [
@@ -51,25 +51,47 @@ const todoApp = combineReducers({
 
 const store = createStore(todoApp);
 
-let nextTodoId = 0;
-const ToDo = ({ todos }) => (
-  <div>
-    <button
-      onClick={() => store.dispatch({
-        type: 'ADD_TODO',
-        text: 'new todo',
-        id: nextTodoId++
-      })}
-    >add todo</button>
-    <ul>
-      {todos.map((todo, i) => 
-        <li key={i}>
-          {todo.text}
-        </li>
-      )}
-    </ul>
-  </div>
-);
+
+const ToDo = ({ todos }) => {
+  let input;
+  let nextTodoId = 0;
+  
+  return (
+    <div>
+      <input ref={node => {
+        input = node
+      }}></input>
+      <button
+        onClick={() => {
+            store.dispatch({
+            type: 'ADD_TODO',
+            text: input.value,
+            id: nextTodoId++
+          })
+          input.value = ''
+        }}
+      >add todo</button>
+      <ul>
+        {todos.map((todo) => 
+          <li key={todo.id}
+            onClick={() => {
+              store.dispatch({
+                type: 'TOGGLE_TODO',
+                id: todo.id
+              })
+            }}
+            style={{
+              textDecoration:
+                todo.completed ? 
+                  'line-through' :
+                  'none'
+            }}>
+            {todo.text}
+          </li>
+        )}
+      </ul>
+    </div>
+)};
 
 const render = () => {
   ReactDOM.render(
@@ -80,5 +102,5 @@ const render = () => {
   )
 };
 
-store.subscribe(todoApp);
+store.subscribe(render);
 render();
