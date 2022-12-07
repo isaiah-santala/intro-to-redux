@@ -20,7 +20,7 @@
   "homepage": "https://github.com/Zaiah11/intro-to-redux#readme",
   "dependencies": {
     "@babel/preset-react": "^7.6.3",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "nodemon": "^1.19.4",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
